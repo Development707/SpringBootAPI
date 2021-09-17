@@ -3,6 +3,8 @@ package com.SpringBootAPI.controller;
 import com.SpringBootAPI.entity.Student;
 import com.SpringBootAPI.service.ServiceStudent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,8 +28,8 @@ public class ControllerStudent {
     }
 
     @PostMapping
-    public Student saveStudent(@Valid @RequestBody Student student){
-        return service.saveStudent(student);
+    public ResponseEntity<Student> saveStudent(@Valid @RequestBody Student student){
+        return new ResponseEntity<Student>(service.saveStudent(student), HttpStatus.CREATED);
     }
 
     @PutMapping
