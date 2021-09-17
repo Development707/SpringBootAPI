@@ -1,10 +1,12 @@
 package com.SpringBootAPI.controller;
 
+import com.SpringBootAPI.DTO.StudentDTO;
 import com.SpringBootAPI.entity.Student;
 import com.SpringBootAPI.service.ServiceStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,8 +17,12 @@ public class ControllerStudent {
     private ServiceStudent service;
 
     @GetMapping
-    public List<Student> getAllStudents(){
-        return service.getAllStudent();
+    public List<StudentDTO> getAllStudents(){
+        List<StudentDTO> listDTO = new ArrayList<>();
+        service.getAllStudent().forEach(student -> {
+            listDTO.add(new StudentDTO(student));
+        });
+        return listDTO;
     }
 
     @GetMapping("/{id}")
